@@ -1,31 +1,39 @@
+use std::fmt;
+
 #[derive(Copy, Clone)]
 pub struct Coordinate {
-    x: i32,
-    y: i32,
+    x: usize,
+    y: usize,
 }
 
 
 impl Coordinate {
-    pub fn new(in_x: &i32, in_y: &i32) -> Coordinate {
+    pub fn new(in_x: &usize, in_y: &usize) -> Coordinate {
         Coordinate {
             x: *in_x,
             y: *in_y,
         }
     }
 
-    pub fn get_x(&self) -> i32 {
+    pub fn get_x(&self) -> usize {
         self.x
     }
 
-    pub fn get_y(&self) -> i32 {
+    pub fn get_y(&self) -> usize {
         self.y
     }
+}
 
-    pub fn to_tuple(self) -> (i32, i32) {
-        (self.x, self.y)
+impl PartialEq for Coordinate {
+    fn eq(&self, other: &Self) -> bool {
+        self.x == other.x && self.y == other.y
     }
+}
+impl Eq for Coordinate {}
 
-    pub fn println(&self) {
-        println!("{:?}", self.to_tuple())
+
+impl fmt::Display for Coordinate {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{},{}", self.x, self.y)
     }
 }

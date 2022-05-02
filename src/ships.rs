@@ -24,13 +24,14 @@ impl Ships {
     fn populate(&mut self) {
         for _ in 0..self.count {
             let mut rng = rand::thread_rng();
-            let mut  x;
-            let mut  y;
+            let mut x: usize;
+            let mut y: usize;
             loop {
-                x = rng.gen_range(0..self.rx);
-                y = rng.gen_range(0..self.ry);
+                x = (rng.gen_range(0..self.rx)).try_into().unwrap();
+                y = (rng.gen_range(0..self.ry)).try_into().unwrap();
 
-                if self.free_coordinate(x, y) {
+                let new_crd = Coordinate::new(&x, &y);
+                if !self.ships_crd.iter().any(|s| *s == new_crd) {
                     break;
                 }
             }
@@ -39,20 +40,5 @@ impl Ships {
             self.ships_crd.push(new_crd)
         }
 
-    }
-
-    fn free_coordinate(&self, x: i32, y: i32) -> bool {
-        for ship in self.ships_crd.iter() {
-            if ship.get_x() == x && ship.get_y() == y {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    pub fn show(self) {
-        for ship in self.ships_crd.iter() {
-            ship.println()
-        }
     }
 }
