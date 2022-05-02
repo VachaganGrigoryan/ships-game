@@ -10,4 +10,4 @@ cd ships-game
 
 ### View
 
-![img.png](img.png)****
+![img.png](img.png)
