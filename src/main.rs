@@ -1,5 +1,4 @@
 use crate::coordinate::Coordinate;
-// use crate::ships::Ships;
 use std::io::{BufRead};
 
 mod coordinate;
@@ -133,23 +132,24 @@ impl BermudaTriangle {
 
         println!("\nCompass:");
         for line in note.iter() {
-            println!("{:?}", line);
+            println!("{}", line.join(""));
         }
 
     }
 
     fn show(&mut self) {
         println!("Game Board:");
-        for line in self.fields.iter() {
-            println!("{:?}", line)
+        for j in 0..(self.ry).try_into().unwrap() {
+            for i in 0..(self.rx).try_into().unwrap() {
+                print!(" {} ", self.fields[i][j]);
+            }
+            println!();
         }
     }
 }
 
 
 fn main() {
-
     let mut bt = BermudaTriangle::new(10, 10, 5);
     bt.run();
-
 }
